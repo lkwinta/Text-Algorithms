@@ -104,8 +104,9 @@ func Preprocess(s []byte) []int {
 //     wystąpienia danego znaku w `s`
 //   - odwzorowuje wszystkie takie znaki, które nie występują
 //     w łańcuchu `s`, na 0
-func findLastOccurrences(s []byte) map[byte]int {
-	lastOccurrences := map[byte]int{}
+func findLastOccurrences(s []byte) []int {
+	//lastOccurrences := map[byte]int{}
+	lastOccurrences := make([]int, 256)
 	for k, c := range s {
 		lastOccurrences[c] = k + 1
 	}
@@ -139,7 +140,7 @@ func simpleComputeGoodSuffixes(s []byte) []int {
 // jeśli `slices.Equal(text[:len(pat)], pat)`; S określa,
 // o ile pozycji w prawo należy przesunąć wzorzec `pat`
 func boyerMooreHasPrefix(text, pat []byte,
-	lastOccurrences map[byte]int, goodSuffixes []int) (bool, int) {
+	lastOccurrences []int, goodSuffixes []int) (bool, int) {
 	for i := len(pat) - 1; i >= 0; i-- {
 		if text[i] != pat[i] {
 			return false, max(i+1-lastOccurrences[text[i]],
@@ -252,7 +253,8 @@ func unhashByteModN(b byte, h, n, power uint64) uint64 {
 
 // Największa liczba pierwsza mniejsza niż 1<<56
 // https://t5k.org/lists/2small/0bit.html
-const N uint64 = 1<<56 - 5
+// const N uint64 = 1<<56 - 5
+var N uint64 = 1 << 56
 
 func KarpRabin(pat, text []byte, output func(int)) {
 	// len(pat) <= len(text)
