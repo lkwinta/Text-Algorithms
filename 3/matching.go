@@ -254,7 +254,7 @@ func unhashByteModN(b byte, h, n, power uint64) uint64 {
 // Największa liczba pierwsza mniejsza niż 1<<56
 // https://t5k.org/lists/2small/0bit.html
 // const N uint64 = 1<<56 - 5
-var N uint64 = 1 << 56
+const N uint64 = 1 << 56
 
 func KarpRabin(pat, text []byte, output func(int)) {
 	// len(pat) <= len(text)
