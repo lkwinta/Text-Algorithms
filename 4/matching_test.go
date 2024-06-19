@@ -50,6 +50,21 @@ func TestFuzzyShiftOrL(t *testing.T) {
 	fmt.Printf("%v \n", got)
 }
 
+func TestFuzzyShiftOrL2(t *testing.T) {
+	text, error := os.ReadFile("cierpienia-mlodego-wertera.txt")
+
+	if error != nil {
+		t.Error("Couldn't read file")
+	}
+
+	pat := []byte("godzina")
+	got := []string{}
+
+	FuzzyShiftOrL2(pat, text,
+		func(i int, j int) { got = append(got, string(text[i:j])) })
+	fmt.Printf("%v \n", got)
+}
+
 func TestAhoCorasick(t *testing.T) {
 	text, error := os.ReadFile("cierpienia-mlodego-wertera.txt")
 
